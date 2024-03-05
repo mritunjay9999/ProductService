@@ -9,6 +9,8 @@ public interface ProductService {
     Product getSingleProduct(Long productId);
     List<Product> getProducts();
 
+    List<Product> getAllProductsInACategory(String category);
+
     Product createProduct(String title,
                           String description,
                           String category,
@@ -16,4 +18,6 @@ public interface ProductService {
                           String image);
 
     void deleteProduct(Long productId);
+
+
 }

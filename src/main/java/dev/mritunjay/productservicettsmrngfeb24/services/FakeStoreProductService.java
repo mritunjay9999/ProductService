@@ -43,6 +43,19 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
+    public List<Product> getAllProductsInACategory(String category) {
+
+        List<Product> productList = new ArrayList<>();
+
+        FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject("https://fakestoreapi.com/products/category/" + category , FakeStoreProductDto[].class);
+        for(int i=0;i<fakeStoreProductDtos.length;i++)
+        {
+            productList.add(fakeStoreProductDtos[i].toProduct());
+        }
+        return productList;
+    }
+
+    @Override
     public Product createProduct(String title,
                                  String  description,
                                  String category,
