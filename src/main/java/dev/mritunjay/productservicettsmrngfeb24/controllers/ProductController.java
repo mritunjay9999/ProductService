@@ -61,6 +61,12 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/products/categories")
+    public String[] getAllCategories()
+    {
+        return restTemplate.getForObject("https://fakestoreapi.com/products/categories" , String[].class);
+    }
+
     public void updateProduct()
     {
 
