@@ -6,6 +6,8 @@ import dev.mritunjay.productservicettsmrngfeb24.services.ProductService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
@@ -54,9 +56,9 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public void getAllProduct()
+    public List<Product> getAllProduct()
     {
-
+        return productService.getProducts();
     }
 
     public void updateProduct()
