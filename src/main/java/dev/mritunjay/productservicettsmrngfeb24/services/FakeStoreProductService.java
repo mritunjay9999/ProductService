@@ -5,6 +5,7 @@ import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +61,10 @@ public class FakeStoreProductService implements ProductService{
                 FakeStoreProductDto.class); // this is datatype of response. When response JSON will come , convert it into an object of this class
 
         return response.toProduct();
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        restTemplate.delete("https://fakestoreapi.com/products/" + productId);
     }
 }

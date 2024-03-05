@@ -71,4 +71,18 @@ public class ProductController {
     {
 
     }
+
+    @DeleteMapping("/products/{id}")
+    public void deleteProduct(@PathVariable("id") Long productId)
+    {
+        if(productId != null)
+        {
+            productService.deleteProduct(productId);
+            System.out.println("Deleted Successfully: " + productId);
+        }
+
+        else {
+            System.out.println("There is no record existing with that productId");
+        }
+    }
 }

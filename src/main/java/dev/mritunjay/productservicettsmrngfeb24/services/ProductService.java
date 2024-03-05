@@ -14,4 +14,6 @@ public interface ProductService {
                           String category,
                           double price,
                           String image);
+
+    void deleteProduct(Long productId);
 }
