@@ -19,5 +19,13 @@ public interface ProductService {
 
     void deleteProduct(Long productId);
 
+    Product updateProduct(
+            Long productId,
+            String title,
+            String description,
+            String category,
+            String image,
+            Double price
+    );
 
 }

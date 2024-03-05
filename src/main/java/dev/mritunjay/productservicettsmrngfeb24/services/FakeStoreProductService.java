@@ -80,4 +80,24 @@ public class FakeStoreProductService implements ProductService{
     public void deleteProduct(Long productId) {
         restTemplate.delete("https://fakestoreapi.com/products/" + productId);
     }
+
+
+    // FakeStore wont allow to update the products , so behind the scenes update method does nothing
+    // when we return products/1 we get the same product as earlier
+    @Override
+    public Product updateProduct(Long productId, String title, String description, String category, String image, Double price) {
+
+        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
+        fakeStoreProductDto.setId(productId);
+
+        if(title != null) fakeStoreProductDto.setTitle(title);
+        if(category != null) fakeStoreProductDto.setCategory(category);
+        if(image != null) fakeStoreProductDto.setImage(image);
+        if(price != null) fakeStoreProductDto.setPrice(price);
+        if(description != null)fakeStoreProductDto.setDescription(description);
+
+        restTemplate.put("https://fakestoreapi.com/products/" + productId , fakeStoreProductDto);
+
+        return getSingleProduct(productId);
+    }
 }

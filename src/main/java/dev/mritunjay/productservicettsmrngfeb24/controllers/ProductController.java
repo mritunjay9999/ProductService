@@ -1,6 +1,8 @@
 package dev.mritunjay.productservicettsmrngfeb24.controllers;
 
 import dev.mritunjay.productservicettsmrngfeb24.dtos.CreateProductRequestDto;
+import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
+import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import dev.mritunjay.productservicettsmrngfeb24.services.ProductService;
 import org.springframework.web.bind.annotation.*;
@@ -73,9 +75,17 @@ public class ProductController {
         return productService.getAllProductsInACategory(category);
     }
 
-    public void updateProduct()
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@PathVariable("id") Long productId ,@RequestBody UpdateProductRequestDto request)
     {
-
+        return productService.updateProduct(
+                productId,
+                request.getTitle(),
+                request.getDescription(),
+                request.getImage(),
+                request.getCategory(),
+                request.getPrice()
+        );
     }
 
     @DeleteMapping("/products/{id}")
