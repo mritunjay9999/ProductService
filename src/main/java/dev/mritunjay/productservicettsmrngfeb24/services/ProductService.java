@@ -1,12 +1,13 @@
 package dev.mritunjay.productservicettsmrngfeb24.services;
 
+import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    Product getSingleProduct(Long productId);
+    Product getSingleProduct(Long productId) throws ProductNotFoundException;
     List<Product> getProducts();
 
     List<Product> getAllProductsInACategory(String category);
@@ -26,6 +27,6 @@ public interface ProductService {
             String category,
             String image,
             Double price
-    );
+    ) throws ProductNotFoundException;
 
 }

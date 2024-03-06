@@ -1,7 +1,10 @@
 package dev.mritunjay.productservicettsmrngfeb24.services;
 
 import dev.mritunjay.productservicettsmrngfeb24.dtos.FakeStoreProductDto;
+import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +17,7 @@ public class FakeStoreProductService implements ProductService{
 
 //    RestTemplate (is a class under SpringBoot-web library)
 //    allows to send HTTP requests to external APIs and work with responses
+//    RestTemplate class has a library Jackson --> work is to convert JSON file into Java object
 
     private RestTemplate restTemplate;
 //
@@ -21,12 +25,60 @@ public class FakeStoreProductService implements ProductService{
     {
         this.restTemplate = restTemplate;
     }
-    @Override
-    public Product getSingleProduct(Long productId) {
+//    @Override
+//    public Product getSingleProduct(Long productId) {
+//
+//        FakeStoreProductDto fakeStoreProduct = restTemplate.getForObject("https://fakestoreapi.com/products/" + productId , FakeStoreProductDto.class);
+//        return fakeStoreProduct.toProduct();
+//    }
+public Product getSingleProduct(Long productId) throws ProductNotFoundException {
 
-        FakeStoreProductDto fakeStoreProduct = restTemplate.getForObject("https://fakestoreapi.com/products/" + productId , FakeStoreProductDto.class);
-        return fakeStoreProduct.toProduct();
+    ResponseEntity<FakeStoreProductDto> fakeStoreProductResponse = restTemplate.getForEntity(
+            "https://fakestoreapi.com/products/" + productId,
+            FakeStoreProductDto.class
+    );
+
+//    if (fakeStoreProductResponse.getStatusCode() != HttpStatusCode.valueOf(200)) {
+//
+//    }
+//
+//        if (fakeStoreProductResponse.getStatusCode() != HttpStatusCode.valueOf(200)) {
+//
+//        }
+
+//        fakeStoreProductResponse.getHeaders().
+
+    FakeStoreProductDto fakeStoreProduct = fakeStoreProductResponse.getBody();
+
+    if (fakeStoreProduct == null) {
+        throw new ProductNotFoundException("Product with id: " + productId + " doesn't exist.Please retry with some other productId.");
     }
+
+    return fakeStoreProduct.toProduct();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public List<Product> getProducts() {
@@ -85,7 +137,7 @@ public class FakeStoreProductService implements ProductService{
     // FakeStore wont allow to update the products , so behind the scenes update method does nothing
     // when we return products/1 we get the same product as earlier
     @Override
-    public Product updateProduct(Long productId, String title, String description, String category, String image, Double price) {
+    public Product updateProduct(Long productId, String title, String description, String category, String image, Double price) throws ProductNotFoundException {
 
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setId(productId);
@@ -100,4 +152,6 @@ public class FakeStoreProductService implements ProductService{
 
         return getSingleProduct(productId);
     }
+
+
 }

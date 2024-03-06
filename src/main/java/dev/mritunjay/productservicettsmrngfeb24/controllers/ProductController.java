@@ -3,8 +3,11 @@ package dev.mritunjay.productservicettsmrngfeb24.controllers;
 import dev.mritunjay.productservicettsmrngfeb24.dtos.CreateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
+import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import dev.mritunjay.productservicettsmrngfeb24.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,15 +55,22 @@ public class ProductController {
 //    Get / products / 200
 //    Get / products / 201
     @GetMapping("/products/{id}")
-    public Product getProductDetails(@PathVariable("id") Long productId)
+    public Product getProductDetails(@PathVariable("id") Long productId) throws ProductNotFoundException
     {
         return productService.getSingleProduct(productId);
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProduct()
+    public ResponseEntity<List<Product>> getAllProducts() throws ProductNotFoundException
     {
-        return productService.getProducts();
+        List<Product> products = productService.getProducts();
+
+//        throw new ProductNotFoundException("This is a new Exception created by MJ");
+
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(products , HttpStatus.FOUND); // gives status code in Postman 404 Not found or 302 Found etc.
+
+//        response.getHeaders().add("My name" , "Mritunjay Gupta");
+        return response;
     }
 
     @GetMapping("/products/categories")
@@ -76,8 +86,7 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}")
-    public Product updateProduct(@PathVariable("id") Long productId ,@RequestBody UpdateProductRequestDto request)
-    {
+    public Product updateProduct(@PathVariable("id") Long productId ,@RequestBody UpdateProductRequestDto request) throws ProductNotFoundException {
         return productService.updateProduct(
                 productId,
                 request.getTitle(),
@@ -101,4 +110,22 @@ public class ProductController {
             System.out.println("There is no record existing with that productId");
         }
     }
+
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    public ResponseEntity<ErrorDto> handleProductNotFoundException(ProductNotFoundException exception)
+//    {
+//
+//        ErrorDto errorDto = new ErrorDto();
+//        errorDto.setMessage(exception.getMessage());
+//
+//        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+//        return null;
+//    }
+
+    // Limited to only the exceptions thrown from this controller
+    // Controller Advices: Global
+
+    // if this controller ever ends up throwing ProductNotFoundException.class
+    // for any reason, don't throw that exception as is.
+    // Instead, call this method and return what this method is returning
 }
