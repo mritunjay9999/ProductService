@@ -1,5 +1,9 @@
 package dev.mritunjay.productservicettsmrngfeb24.models;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +14,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@Entity
+public class Product extends BaseModel{
 
-    private Long id;
     private String title;
     private String description;
     private double price;
     private String imageUrl;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+//    if a product is removed then mapped category will persist in db
+//    @ManyToOne
     private Category category;
 
 

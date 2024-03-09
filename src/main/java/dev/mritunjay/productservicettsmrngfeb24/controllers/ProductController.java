@@ -6,6 +6,7 @@ import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import dev.mritunjay.productservicettsmrngfeb24.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,8 @@ public class ProductController {
 
     private RestTemplate restTemplate;
 
-    public ProductController(ProductService productService , RestTemplate restTemplate)
+//    public ProductController(ProductService productService , RestTemplate restTemplate)
+    public ProductController(@Qualifier("selfProductService") ProductService productService , RestTemplate restTemplate)
     {
         this.productService = productService;
         this.restTemplate = restTemplate;
