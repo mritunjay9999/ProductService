@@ -69,7 +69,7 @@ public class ProductController {
 
 //        throw new ProductNotFoundException("This is a new Exception created by MJ");
 
-        ResponseEntity<List<Product>> response = new ResponseEntity<>(products , HttpStatus.FOUND); // gives status code in Postman 404 Not found or 302 Found etc.
+        ResponseEntity<List<Product>> response = new ResponseEntity<>(products , HttpStatus.OK); // gives status code in Postman 404 Not found or 302 Found etc.
 
 //        response.getHeaders().add("My name" , "Mritunjay Gupta");
         return response;

@@ -1,5 +1,6 @@
 package dev.mritunjay.productservicettsmrngfeb24.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -21,5 +22,6 @@ public class Category extends BaseModel{
     @OneToMany(mappedBy = "category" , cascade = {CascadeType.REMOVE})
 //    if you remove a category then mapped products will also get deleted
 //    @OneToMany
+    @JsonIgnore
     private List<Product> products;
 }
