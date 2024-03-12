@@ -2,11 +2,15 @@ package dev.mritunjay.productservicettsmrngfeb24.repositories;
 
 import dev.mritunjay.productservicettsmrngfeb24.models.Category;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
+import dev.mritunjay.productservicettsmrngfeb24.repositories.projections.ProductProjection;
+import dev.mritunjay.productservicettsmrngfeb24.repositories.projections.ProductWithTitleAndId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product , Long> {
+public interface ProductRepository extends JpaRepository<Product , Long>{
 //        Dealing with Product class and data type of primary key is Long
         Product save(Product p);
 //        Product that is passed as a parameter will not contain "id"
@@ -18,7 +22,6 @@ public interface ProductRepository extends JpaRepository<Product , Long> {
         List<Product> findAll();
 
         Product findByIdIs(Long id);
-
 //        Product findAllByTitle(String title);
 //        Product findFirstByIdIs(Long id);
 
@@ -27,5 +30,20 @@ public interface ProductRepository extends JpaRepository<Product , Long> {
         void deleteById(Long id);
 //        wrote deleteProductById(Long id) earlier , so resulted in error
 
+
+//        HQL QUERIES!!
+        @Query("select p from Product p where p.category.title= :title and p.id= :productId")
+        Product getProductWithCategoryNameAndProductId(@Param("title") String title , @Param("productId") Long productId);
+//        way to declare an HQL query
+
+        @Query("select p.title from Product p where p.category.id= :categoryId")
+        List<String> getTitlesOfAllProductsInACategory(@Param("categoryId") Long categoryId);
+
+//        But if we want to return p.title, p.id then bcz List<> is 1-D so, it cannot be used
+//        For this purpose we use PROJECTIONS!!!!!
+//        Projections are nothing but the interfaces (with getters) by the exact same name (i.e. paramaters)by which we created the methods in ProductRepo class
+
+        @Query("select p.title as title, p.id as id from Product p where p.category.id= :categoryId")
+        List<ProductProjection> getTitlesAndIdsOfAllProductsInACategory(@Param("categoryId") Long categoryId);
 }
 
