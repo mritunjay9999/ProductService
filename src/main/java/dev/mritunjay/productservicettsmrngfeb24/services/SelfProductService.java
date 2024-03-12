@@ -35,12 +35,15 @@ public class SelfProductService implements ProductService{
     public List<Product> getAllProductsInACategory(String category) {
         Category categoryFromDatabase = categoryRepository.findByTitle(category);
 
-        if(categoryFromDatabase == null)
-        {
-           return null;
-        }
-        else
+        if (categoryFromDatabase == null) {
+            return null;
+        } else
             return productRepository.findAllByCategory(categoryFromDatabase);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 
     @Override

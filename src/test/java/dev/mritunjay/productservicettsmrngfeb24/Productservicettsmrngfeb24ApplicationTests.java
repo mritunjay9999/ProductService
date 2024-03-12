@@ -1,5 +1,6 @@
 package dev.mritunjay.productservicettsmrngfeb24;
 
+import dev.mritunjay.productservicettsmrngfeb24.repositories.CategoryRepository;
 import dev.mritunjay.productservicettsmrngfeb24.repositories.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ class Productservicettsmrngfeb24ApplicationTests {
 //    To put a Spring bean in test case we need to annotate the bean with autowired
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Test
     void contextLoads() {
@@ -22,7 +25,8 @@ class Productservicettsmrngfeb24ApplicationTests {
 //        productRepository.findByIdIs(102L);
 //        productRepository.findAllByTitle("Hello");
 //          productRepository.findFirstByIdIs(2L);
-
     }
 
 }
+
+//Productservicettsmrngfeb24ApplicationTests.testingQueries

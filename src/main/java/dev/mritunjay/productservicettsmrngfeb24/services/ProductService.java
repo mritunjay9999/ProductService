@@ -1,8 +1,10 @@
 package dev.mritunjay.productservicettsmrngfeb24.services;
 
 import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
+import dev.mritunjay.productservicettsmrngfeb24.models.Category;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 
+import java.util.Calendar;
 import java.util.List;
 
 public interface ProductService {
@@ -11,6 +13,9 @@ public interface ProductService {
     List<Product> getProducts();
 
     List<Product> getAllProductsInACategory(String category);
+
+    List<Category> getAllCategories();
+
 
     Product createProduct(String title,
                           String description,

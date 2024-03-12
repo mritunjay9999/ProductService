@@ -4,6 +4,7 @@ import dev.mritunjay.productservicettsmrngfeb24.dtos.CreateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.dtos.UpdateProductRequestDto;
 import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
+import dev.mritunjay.productservicettsmrngfeb24.models.Category;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import dev.mritunjay.productservicettsmrngfeb24.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -76,9 +77,10 @@ public class ProductController {
     }
 
     @GetMapping("/products/categories")
-    public String[] getAllCategories()
+    public List<Category> getAllCategories()
     {
-        return restTemplate.getForObject("https://fakestoreapi.com/products/categories" , String[].class);
+//        return restTemplate.getForObject("https://fakestoreapi.com/products/categories" , String[].class);
+        return productService.getAllCategories();
     }
 
     @GetMapping("/products/category/{category}")

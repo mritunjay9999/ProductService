@@ -5,7 +5,6 @@ import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 public interface ProductRepository extends JpaRepository<Product , Long> {
 //        Dealing with Product class and data type of primary key is Long

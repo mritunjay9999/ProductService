@@ -2,7 +2,9 @@ package dev.mritunjay.productservicettsmrngfeb24.services;
 
 import dev.mritunjay.productservicettsmrngfeb24.dtos.FakeStoreProductDto;
 import dev.mritunjay.productservicettsmrngfeb24.exceptions.ProductNotFoundException;
+import dev.mritunjay.productservicettsmrngfeb24.models.Category;
 import dev.mritunjay.productservicettsmrngfeb24.models.Product;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -107,6 +109,12 @@ public Product getSingleProduct(Long productId) throws ProductNotFoundException 
         }
         return productList;
     }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return null;
+    }
+
 
     @Override
     public Product createProduct(String title,
