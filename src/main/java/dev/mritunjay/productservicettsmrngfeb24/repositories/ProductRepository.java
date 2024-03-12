@@ -24,6 +24,8 @@ public interface ProductRepository extends JpaRepository<Product , Long> {
 
         List<Product> findAllByCategory(Category category);
 
+        void deleteById(Long id);
+//        wrote deleteProductById(Long id) earlier , so resulted in error
 
 }
 
