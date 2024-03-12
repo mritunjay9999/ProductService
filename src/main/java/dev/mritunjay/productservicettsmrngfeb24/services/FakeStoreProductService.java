@@ -162,5 +162,10 @@ public Product getSingleProduct(Long productId) throws ProductNotFoundException 
         return getSingleProduct(productId);
     }
 
+    @Override
+    public Product updateProductUsingPatchMapping(Long productId, String title, String description, String category, String image, Double price) throws ProductNotFoundException {
+        return null;
+    }
+
 
 }

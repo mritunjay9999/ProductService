@@ -75,6 +75,46 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product updateProduct(Long productId, String title, String description, String category, String image, Double price) throws ProductNotFoundException {
-        return null;
+
+        Product product= getSingleProduct(productId);
+        if(product == null) {
+            product = new Product();
+        }
+        product.setId(productId);
+        if(title!=null) product.setTitle(title);
+        if(description!=null) product.setDescription(description);
+        if(image!=null) product.setImageUrl(image);
+        if(price != null) product.setPrice(price);
+
+        Category category1 = categoryRepository.findByTitle(category);
+        if(category1 == null)
+        {
+            category1 = new Category();
+            category1.setTitle(category);
+        }
+        product.setCategory(category1);
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product updateProductUsingPatchMapping(Long productId, String title, String description, String category, String image, Double price) throws ProductNotFoundException {
+        Product product= getSingleProduct(productId);
+        if(product == null) {
+            product = new Product();
+        }
+        product.setId(productId);
+        if(title!=null) product.setTitle(title);
+        if(description!=null) product.setDescription(description);
+        if(image!=null) product.setImageUrl(image);
+        if(price != null) product.setPrice(price);
+
+        Category category1 = categoryRepository.findByTitle(category);
+        if(category1 == null)
+        {
+            category1 = new Category();
+            category1.setTitle(category);
+        }
+        product.setCategory(category1);
+        return productRepository.save(product);
     }
 }

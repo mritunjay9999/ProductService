@@ -95,8 +95,20 @@ public class ProductController {
                 productId,
                 request.getTitle(),
                 request.getDescription(),
-                request.getImage(),
                 request.getCategory(),
+                request.getImage(),
+                request.getPrice()
+        );
+    }
+
+    @PatchMapping("/products/{id}")
+    public Product updateProductUsingPatchMapping(@PathVariable("id") Long productId ,@RequestBody UpdateProductRequestDto request) throws ProductNotFoundException {
+        return productService.updateProductUsingPatchMapping(
+                productId,
+                request.getTitle(),
+                request.getDescription(),
+                request.getCategory(),
+                request.getImage(),
                 request.getPrice()
         );
     }

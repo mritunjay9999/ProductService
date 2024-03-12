@@ -34,4 +34,13 @@ public interface ProductService {
             Double price
     ) throws ProductNotFoundException;
 
+    Product updateProductUsingPatchMapping(
+            Long productId,
+            String title,
+            String description,
+            String category,
+            String image,
+            Double price
+    ) throws ProductNotFoundException;
+
 }
