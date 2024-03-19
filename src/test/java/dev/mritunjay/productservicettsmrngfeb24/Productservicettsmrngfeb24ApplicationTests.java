@@ -1,5 +1,7 @@
 package dev.mritunjay.productservicettsmrngfeb24;
 
+import dev.mritunjay.productservicettsmrngfeb24.models.Category;
+import dev.mritunjay.productservicettsmrngfeb24.models.Product;
 import dev.mritunjay.productservicettsmrngfeb24.repositories.CategoryRepository;
 import dev.mritunjay.productservicettsmrngfeb24.repositories.ProductRepository;
 import dev.mritunjay.productservicettsmrngfeb24.repositories.projections.ProductProjection;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class Productservicettsmrngfeb24ApplicationTests {
@@ -38,6 +41,19 @@ class Productservicettsmrngfeb24ApplicationTests {
         System.out.println(pros2);
         System.out.println(pros2.get(0).getId());
         System.out.println(pros2.get(0).getTitle());
+
+        Optional<Category> optionalCategory = categoryRepository.findById(202L);
+        Category category = optionalCategory.get();
+//      No join statement by hibernate till now i.e. LAZY LOADING
+
+        System.out.println("Fetched the category object");
+//        Optional<> class got added in java 1.8 to avoid NullPointerException (using this, many if-else blocks are eliminated)
+//        Using its methods like isPresent() , orElse() etc. makes coding easy and simple.
+
+//        List<Product> products = optionalCategory.get().getProducts();
+//        Not required with EAGER LOADING
+        System.out.println("Successfully Fetched list of products from Category object");
+//        Got 2 products from Category id 202L
     }
 
 }

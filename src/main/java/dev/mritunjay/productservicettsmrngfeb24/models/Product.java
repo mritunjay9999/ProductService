@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity // an entity refers to a table in a relational db
 public class Product extends BaseModel{
 
     private String title;
@@ -27,6 +27,6 @@ public class Product extends BaseModel{
 //    @ManyToOne
     private Category category;
 
-
+    private int quantity;       // new variable to modify schema i.e. add new column (using flyway) so its migration version file to be created by us
 
 }
